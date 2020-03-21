@@ -1,0 +1,8 @@
+compressorConfig:
+  bits_per_codevector:
+  epochs:
+  initial_learning_rate:
+imageHandlerConfig:
+  image_location:
+  block_width:
+  block_height:

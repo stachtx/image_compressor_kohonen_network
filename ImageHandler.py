@@ -1,26 +1,30 @@
-import sys
-
 import cv2
 import numpy as np
+
+from Config import Config
 
 
 class ImageHandler:
 
-    # source image
-    image_location = sys.argv[1]
-    image = cv2.imread(image_location, cv2.IMREAD_GRAYSCALE)
-    image_height = len(image)
-    image_width = len(image[0])
-    # dimension of the vector
-    block_width = int(sys.argv[3])
-    block_height = int(sys.argv[4])
-    vector_dimension = block_width * block_height
+    def __init__(self):
+        self.config = Config.get_instance().imageHandlerConfig
+        self.image = cv2.imread(self.config.image_location, cv2.IMREAD_GRAYSCALE)
+        self.image_height = len(self.image)
+        self.image_width = len(self.image[0])
+        self.vector_dimension = self.config.block_width * self.config.block_height
 
     def split_image_to_blocks(self):
         image_vectors = []
-        for i in range(0, self.image_height, self.block_height):
-            for j in range(0, ImageHandler.image_width, ImageHandler.block_width):
+        for i in range(0, self.image_height, self.config.block_height):
+            for j in range(0, self.image_width, self.config.block_width):
                 image_vectors.append(
-                    np.reshape(self.image[i:i + self.block_width, j:j + self.block_height], self.vector_dimension))
-        image_vectors = np.asarray(image_vectors).astype(float)
-        number_of_image_vectors = image_vectors.shape[0]
+                    np.reshape(
+                        self.image[i:i + self.config.block_width, j:j + self.config.block_height],
+                        self.vector_dimension))
+        return np.asarray(image_vectors).astype(float)
+
+    def mse(self, image_b):
+        # calculate mean square error between two images
+        err = np.sum((self.image.astype(float) - image_b.astype(float)) ** 2)
+        err /= float(self.image.shape[0] * self.image.shape[1])
+        return err
