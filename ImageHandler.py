@@ -7,7 +7,7 @@ from Config import Config
 class ImageHandler:
 
     def __init__(self):
-        self.config = Config.get_instance().imageHandlerConfig
+        self.config = Config().imageHandlerConfig
         self.image = cv2.imread(self.config.image_location, cv2.IMREAD_GRAYSCALE)
         self.image_height = len(self.image)
         self.image_width = len(self.image[0])
