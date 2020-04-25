@@ -21,7 +21,7 @@ class Config:
 
 class ImageHandlerConfig:
     def __init__(self, raw):
-        self.imageLocation = raw['image_location']
+        self.image_location = raw['image_location']
         self.block_width = raw['block_width']
         self.block_height = raw['block_height']
 

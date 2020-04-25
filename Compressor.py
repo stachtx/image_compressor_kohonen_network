@@ -1,6 +1,7 @@
-from math import pow
+from math import log, pow
 
 import numpy as np
+import scipy.misc
 import scipy.misc
 from scipy.cluster.vq import vq
 
@@ -16,7 +17,7 @@ class Compressor:
         self.codebook_size = pow(2, self.config.bits_per_codevector)
 
     def compress(self):
-        kn_rows = int(pow(2, int((np.log(self.codebook_size, 2)) / 2)))
+        kn_rows = int(pow(2, int((log(self.codebook_size, 2)) / 2)))
         kn_columns = int(self.codebook_size / kn_rows)
         image_handler = ImageHandler()
         image_vectors = image_handler.split_image_to_blocks()
@@ -25,7 +26,6 @@ class Compressor:
                              number_of_image_vectors, self.config.initial_learning_rate,
                              max(kn_rows, kn_columns) / 2)
         reconstruction_values = kn.train(image_vectors)
-
         image_vector_indices, distance = vq(image_vectors, reconstruction_values)
 
         image_after_compression = np.zeros([image_handler.image_width, image_handler.image_height], "uint8")

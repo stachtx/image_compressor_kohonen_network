@@ -7,7 +7,6 @@ from scipy import spatial
 class KohonnenNetwork(object):
 
     def __init__(self, rows, columns, dimensions, epochs, number_of_input_vectors, alpha, sigma):
-
         self.rows = rows
         self.columns = columns
         self.dimensions = dimensions
