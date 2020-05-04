@@ -1,7 +1,9 @@
+from math import pow, log
+
 import cv2
 import imageio
 import numpy as np
-
+import os
 from Config import Config
 
 
@@ -33,3 +35,11 @@ class ImageHandler:
         err = np.sum((self.image.astype(float) - image_b.astype(float)) ** 2)
         err /= float(self.image.shape[0] * self.image.shape[1])
         return err
+
+    @staticmethod
+    def psnr(mse):
+        return 10 * log(pow(255, 2) / mse, 10)
+
+    @staticmethod
+    def compression_ratio(image_b_name):
+        return os.stat('Lenna.png').st_size / os.stat(image_b_name).st_size

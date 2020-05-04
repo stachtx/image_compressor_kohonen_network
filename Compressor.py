@@ -39,7 +39,8 @@ class Compressor:
         image_after_compression = np.zeros([image_handler.image_width, image_handler.image_height], "uint8")
         for index, image_vector in enumerate(image_vectors):
             start_row = int(
-                index / (image_handler.image_width / self.imageHandlerConfig.block_width)) * self.imageHandlerConfig.block_height
+                index / (
+                            image_handler.image_width / self.imageHandlerConfig.block_width)) * self.imageHandlerConfig.block_height
             end_row = start_row + self.imageHandlerConfig.block_height
             start_column = (index * self.imageHandlerConfig.block_width) % image_handler.image_width
             end_column = start_column + self.imageHandlerConfig.block_width
@@ -49,8 +50,10 @@ class Compressor:
 
         output_image_name = "CB_size=" + str(self.codebook_size) + ".png"
         image_handler.save_image(image_after_compression, output_image_name)
-
-        print("Mean Square Error = ", image_handler.mse(image_after_compression))
+        mse = image_handler.mse(image_after_compression)
+        print("Mean Square Error = ", mse)
+        print("PSNR measure = ", image_handler.psnr(mse))
+        print("Compression ratio = ", image_handler.compression_ratio(output_image_name))
 
 
 def main():
