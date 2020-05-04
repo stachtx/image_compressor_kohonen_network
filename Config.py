@@ -24,6 +24,7 @@ class ImageHandlerConfig:
         self.image_location = raw['image_location']
         self.block_width = raw['block_width']
         self.block_height = raw['block_height']
+        self.training_frames = raw['training_frames']
 
 
 class CompressorConfig:
@@ -31,3 +32,4 @@ class CompressorConfig:
         self.bits_per_codevector = raw['bits_per_codevector']
         self.epochs = raw['epochs']
         self.initial_learning_rate = raw['initial_learning_rate']
+        self.output_neurons = raw['output_neurons']

@@ -1,4 +1,5 @@
 import cv2
+import imageio
 import numpy as np
 
 from Config import Config
@@ -22,6 +23,10 @@ class ImageHandler:
                         self.image[i:i + self.config.block_width, j:j + self.config.block_height],
                         self.vector_dimension))
         return np.asarray(image_vectors).astype(float)
+
+    @staticmethod
+    def save_image(image, output_image_name):
+        imageio.imwrite(output_image_name, image)
 
     def mse(self, image_b):
         # calculate mean square error between two images
