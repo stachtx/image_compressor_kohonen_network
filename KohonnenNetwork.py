@@ -16,8 +16,6 @@ class KohonnenNetwork(object):
         self.number_of_input_vectors = number_of_input_vectors
         self.number_of_iterations = self.epochs * self.number_of_input_vectors
 
-        self.weight_vectors = np.random.uniform(0, 255, (self.rows * self.columns, self.dimensions))
-
     def get_bmu_location(self, input_vector, weights):
 
         tree = spatial.KDTree(weights)
@@ -44,8 +42,16 @@ class KohonnenNetwork(object):
             updated_weight = self.weight_vectors[l] + np.array(weight_delta)
             self.weight_vectors[l] = updated_weight
 
+    def draw_and_normalize_wectors(self):
+        wectors = np.random.uniform(0, 255, (self.rows * self.columns, self.dimensions))
+        for i in range(0, wectors.shape[0]):
+            for j in range(0, wectors[i].shape[0]):
+                wectors[i][j] = (wectors[i][j] - 0) / (255 - 0)
+        self.weight_vectors = wectors
+
     def train(self, input_data):
 
+        self.draw_and_normalize_wectors()
         iter_no = 0
         for epoch_number in range(self.epochs):
             for index, input_vector in enumerate(input_data):

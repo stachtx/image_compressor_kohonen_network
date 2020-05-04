@@ -25,6 +25,7 @@ class ImageHandlerConfig:
         self.block_width = raw['block_width']
         self.block_height = raw['block_height']
         self.training_frames = raw['training_frames']
+        self.RGB = raw['RGB']
 
 
 class CompressorConfig:
