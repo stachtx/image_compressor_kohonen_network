@@ -19,6 +19,8 @@ class ImageHandler:
         self.image_height = len(self.image)
         self.image_width = len(self.image[0])
         self.vector_dimension = self.config.block_width * self.config.block_height
+        self.block_width = self.config.block_width
+        self.block_height = self.config.block_height
 
     def split_image_to_blocks(self):
         image_vectors = []
@@ -32,7 +34,7 @@ class ImageHandler:
 
     @staticmethod
     def save_image(image, output_image_name):
-        imageio.imwrite(output_image_name, image)
+        imageio.imwrite( output_image_name, image)
 
     def split_image_to_blocks_RGB(self, number):
         image_vectors = []

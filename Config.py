@@ -30,7 +30,6 @@ class ImageHandlerConfig:
 
 class CompressorConfig:
     def __init__(self, raw):
-        self.bits_per_codevector = raw['bits_per_codevector']
         self.epochs = raw['epochs']
         self.initial_learning_rate = raw['initial_learning_rate']
-        self.output_neurons = raw['output_neurons']
+        self.number_of_neurons = raw['number_of_neurons']
