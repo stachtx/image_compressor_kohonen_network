@@ -31,6 +31,7 @@ class KohonnenNetwork(object):
         for x in range(self.number_of_neurons):
             distance_from_bmu = np.append(distance_from_bmu, np.linalg.norm(bmu_location - np.array([x])))
 
+        # Gaussian neighbour function
         neighbourhood_function = [exp(-0.5 * pow(val, 2) / float(pow(sigma_op, 2))) for val in distance_from_bmu]
 
         final_learning_rate = [alpha_op * val for val in neighbourhood_function]

@@ -1,10 +1,10 @@
 compressorConfig:
-  epochs: 1
+  epochs: 3
   initial_learning_rate: 0.2
-  number_of_neurons: 20
+  number_of_neurons: 30
 imageHandlerConfig:
   image_location: Lenna.png
   block_width: 4
   block_height: 4
-  RGB: false
+  RGB: true
   training_frames: 5000

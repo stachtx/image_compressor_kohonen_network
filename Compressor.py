@@ -1,5 +1,5 @@
 import random
-from math import log, pow
+from math import log, pow, ceil
 
 import imageio
 import numpy as np
@@ -24,8 +24,8 @@ class Compressor:
 
     def compress(self):
         image_handler = ImageHandler()
-        kn_rows = image_handler.block_width
-        kn_columns = image_handler.block_height
+        kn_rows = ceil(log(self.compressorConfig.number_of_neurons, 2))
+        kn_columns = self.compressorConfig.number_of_neurons / kn_rows
         is_RGB = image_handler.config.RGB
         if is_RGB:
             image_vectors_R = image_handler.split_image_to_blocks_RGB(2)
@@ -67,7 +67,8 @@ class Compressor:
                             reconstruction_values_B[image_vector_indices_B[index]][counter]
                         counter = counter + 1
 
-            output_image_name = "RGB_CB_neurons=" + str(self.compressorConfig.number_of_neurons) + ".png"
+            output_image_name = "RGB_CB_neurons=" + str(self.compressorConfig.number_of_neurons) + "_block_size=" + \
+                                str(self.imageHandlerConfig.block_width) + "x" + str(self.imageHandlerConfig.block_height) + ".png"
             imageio.imwrite(output_image_name, image_after_compression_RGB)
             mse = image_handler.mse(image_after_compression_RGB)
             print("Mean Square Error = ", mse)
@@ -97,7 +98,8 @@ class Compressor:
                     np.reshape(reconstruction_values[image_vector_indices[index]],
                                (self.imageHandlerConfig.block_width, self.imageHandlerConfig.block_height))
 
-            output_image_name = "CB_neurons=" + str(self.compressorConfig.number_of_neurons) + ".png"
+            output_image_name = "CB_neurons=" + str(self.compressorConfig.number_of_neurons) + "_block_size=" + \
+                                str(self.imageHandlerConfig.block_width) + "x" + str(self.imageHandlerConfig.block_height) + ".png"
             image_handler.save_image(image_after_compression, output_image_name)
             mse = image_handler.mse(image_after_compression)
             print("Mean Square Error = ", mse)
