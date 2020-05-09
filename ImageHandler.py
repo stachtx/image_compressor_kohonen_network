@@ -14,8 +14,6 @@ class ImageHandler:
         self.config = Config().imageHandlerConfig
         color = cv2.IMREAD_COLOR if self.config.RGB else cv2.IMREAD_GRAYSCALE
         self.image = cv2.imread(self.config.image_location, color)
-        self.image_after_compression = np.zeros([512, 512], "uint8")
-        self.image_after_compression_RGB = np.zeros([512, 512, 3], "uint8")
         self.image_height = len(self.image)
         self.image_width = len(self.image[0])
         self.vector_dimension = self.config.block_width * self.config.block_height
